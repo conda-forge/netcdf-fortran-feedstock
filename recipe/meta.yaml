@@ -22,6 +22,7 @@ requirements:
 test:
     commands:
         - nf-config --all
+        - conda inspect linkages -n _test netcdf-fortran  # [linux]
 
 about:
     home: https://github.com/Unidata/netcdf-fortran
