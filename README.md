@@ -5,7 +5,7 @@ Home: https://github.com/Unidata/netcdf-fortran
 
 Package license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
 
-Feedstock license: BSD
+Feedstock license: BSD 3-Clause
 
 Summary: Unidata NetCDF Fortran Library
 
@@ -69,6 +69,7 @@ Terminology
 
 Current build status
 ====================
+
 Linux: [![Circle CI](https://circleci.com/gh/conda-forge/netcdf-fortran-feedstock.svg?style=svg)](https://circleci.com/gh/conda-forge/netcdf-fortran-feedstock)
 OSX: [![TravisCI](https://travis-ci.org/conda-forge/netcdf-fortran-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/netcdf-fortran-feedstock) 
 Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/netcdf-fortran-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/netcdf-fortran-feedstock/branch/master)
