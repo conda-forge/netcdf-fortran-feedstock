@@ -7,16 +7,16 @@ source:
     git_tag: v4.4.3
 
 build:
-    number: 2
+    number: 3
     skip: True  # [win]
 
 requirements:
     build:
-        - libnetcdf 4.3*
+        - libnetcdf 4.4.*
         - krb5
         - gcc
     run:
-        - libnetcdf 4.3*
+        - libnetcdf 4.4.*
         - krb5
         - libgcc
 
