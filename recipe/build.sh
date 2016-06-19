@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# See http://www.unidata.ucar.edu/support/help/MailArchives/netcdf/msg11939.html
-if [ "$(uname)" == "Darwin" ]; then
-    export DYLD_LIBRARY_PATH=${PREFIX}/lib
-fi
-
-CPPFLAGS=-I$PREFIX/include LDFLAGS=-L$PREFIX/lib ./configure --prefix=$PREFIX
-
+# Build static.
+cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -D BUILD_SHARED_LIBS=OFF \
+      $SRC_DIR
 make
-make check
+ctest
 make install
