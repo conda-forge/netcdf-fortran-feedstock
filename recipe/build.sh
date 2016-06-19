@@ -5,7 +5,11 @@ if [ "$(uname)" == "Darwin" ]; then
     export DYLD_LIBRARY_PATH=${PREFIX}/lib
 fi
 
-CPPFLAGS=-I$PREFIX/include LDFLAGS=-L$PREFIX/lib ./configure --prefix=$PREFIX
+export CPPFLAGS="-I$PREFIX/include $CPPFLAGS"
+export LDFLAGS="-L$PREFIX/lib $LDFLAGS"
+export CFLAGS="-fPIC $CFLAGS"
+
+./configure --prefix=$PREFIX
 
 make
 make check
