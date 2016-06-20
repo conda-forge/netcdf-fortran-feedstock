@@ -1,12 +1,35 @@
 #!/bin/bash
 
-# See http://www.unidata.ucar.edu/support/help/MailArchives/netcdf/msg11939.html
-if [ "$(uname)" == "Darwin" ]; then
-    export DYLD_LIBRARY_PATH=${PREFIX}/lib
+if [[ $(uname) == Darwin ]]; then
+  export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
+elif [[ $(uname) == Linux ]]; then
+  export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-CPPFLAGS=-I$PREFIX/include LDFLAGS=-L$PREFIX/lib ./configure --prefix=$PREFIX
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
+
+# Build static.
+mkdir build_static && cd build_static
+cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -D BUILD_SHARED_LIBS=OFF \
+      $SRC_DIR
 
 make
-make check
+# ctest  # Run only for the shared lib build to save time.
+make install
+
+make clean
+
+cd ..
+mkdir build_shared && cd build_shared
+# Build shared.
+cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -D BUILD_SHARED_LIBS=ON \
+      $SRC_DIR
+
+make
+ctest
 make install

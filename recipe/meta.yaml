@@ -1,28 +1,40 @@
+{% set version = "4.4.4" %}
+
 package:
     name: netcdf-fortran
-    version: 4.4.3
+    version: {{ version }}
 
 source:
-    git_url: https://github.com/Unidata/netcdf-fortran
-    git_tag: v4.4.3
+    fn: netcdf-fortran-{{ version }}.tar.gz
+    url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
+    sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
+    patches:
+        - no_clang.patch  # [osx]
 
 build:
-    number: 2
+    number: 0
     skip: True  # [win]
 
 requirements:
     build:
-        - libnetcdf 4.3*
+        - cmake
+        - libnetcdf 4.4.*
+        - pkg-config  # [unix]
         - krb5
         - gcc
+        - isl 0.12.*
     run:
-        - libnetcdf 4.3*
+        - libnetcdf 4.4.*
         - krb5
         - libgcc
+        - isl 0.12.*
 
 test:
+    requires:
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
-        - nf-config --all
+        #- nf-config --all  # FIXME: no nf-config for cmake
+        - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
         - conda inspect linkages -n _test netcdf-fortran  # [linux]
 
 about:
