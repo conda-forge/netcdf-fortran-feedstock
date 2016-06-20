@@ -32,6 +32,7 @@ test:
         - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
         #- nf-config --all  # FIXME: no nf-config for cmake
+        - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
         - conda inspect linkages -n _test netcdf-fortran  # [linux]
 
 about:
