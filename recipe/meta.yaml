@@ -28,8 +28,10 @@ requirements:
         - isl 0.12.*
 
 test:
+    requires:
+        - python {{ environ['PY_VER'] + '*' }}  # [win]
     commands:
-        - nf-config --all
+        #- nf-config --all  # FIXME: no nf-config for cmake
         - conda inspect linkages -n _test netcdf-fortran  # [linux]
 
 about:
