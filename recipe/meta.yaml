@@ -8,6 +8,8 @@ source:
     fn: netcdf-fortran-{{ version }}.tar.gz
     url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
     sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
+    patches:
+        - no_clang.patch  # [osx]
 
 build:
     number: 0
