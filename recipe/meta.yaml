@@ -12,22 +12,19 @@ source:
         - no_clang.patch  # [osx]
 
 build:
-    number: 0
+    number: 1
     skip: True  # [win]
 
 requirements:
     build:
         - cmake
         - libnetcdf 4.4.*
-        - pkg-config  # [unix]
-        - krb5
-        - gcc
-        - isl 0.12.*
+        - pkg-config  # [not win]
+        - gcc  # [not win]
     run:
         - libnetcdf 4.4.*
-        - krb5
-        - libgcc
-        - isl 0.12.*
+        - libgcc  # [linux]
+        - libgfortran  # [osx]
 
 test:
     requires:
@@ -35,12 +32,12 @@ test:
     commands:
         #- nf-config --all  # FIXME: no nf-config for cmake
         - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
-        - conda inspect linkages -n _test netcdf-fortran  # [linux]
+        - conda inspect linkages -n _test netcdf-fortran  # [not win]
 
 about:
     home: https://github.com/Unidata/netcdf-fortran
     license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
-    summary: Unidata NetCDF Fortran Library
+    summary: 'Unidata NetCDF Fortran Library.'
 
 extra:
     recipe-maintainers:
