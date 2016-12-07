@@ -1,45 +1,44 @@
 {% set version = "4.4.4" %}
 
 package:
-    name: netcdf-fortran
-    version: {{ version }}
+  name: netcdf-fortran
+  version: {{ version }}
 
 source:
-    fn: netcdf-fortran-{{ version }}.tar.gz
-    url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
-    sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
-    patches:
-        - no_clang.patch  # [osx]
+  fn: netcdf-fortran-{{ version }}.tar.gz
+  url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
+  sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
+  patches:
+    - no_clang.patch  # [osx]
 
 build:
-    number: 1
-    skip: True  # [win]
+  number: 2
+  skip: True  # [win]
 
 requirements:
-    build:
-        - cmake
-        - libnetcdf 4.4.*
-        - pkg-config  # [not win]
-        - gcc  # [not win]
-    run:
-        - libnetcdf 4.4.*
-        - libgcc  # [linux]
-        - libgfortran  # [osx]
+  build:
+    - cmake
+    - libnetcdf 4.4.*
+    - pkg-config  # [not win]
+    - gcc  # [not win]
+  run:
+    - libnetcdf 4.4.*
+    - libgcc  # [linux]
+    - libgfortran  # [osx]
 
 test:
-    requires:
-        - python {{ environ['PY_VER'] + '*' }}  # [win]
-    commands:
-        #- nf-config --all  # FIXME: no nf-config for cmake
-        - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
-        - conda inspect linkages -n _test netcdf-fortran  # [not win]
+  commands:
+    #- nf-config --all  # FIXME: no nf-config for cmake
+    - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
+    - conda inspect linkages -p $PREFIX netcdf-fortran  # [not win]
+    - conda inspect objects -p $PREFIX netcdf-fortran  # [osx]
 
 about:
-    home: https://github.com/Unidata/netcdf-fortran
-    license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
-    summary: 'Unidata NetCDF Fortran Library.'
+  home: https://github.com/Unidata/netcdf-fortran
+  license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
+  summary: 'Unidata NetCDF Fortran Library.'
 
 extra:
-    recipe-maintainers:
-        - ocefpaf
-        - bekozi
+  recipe-maintainers:
+    - ocefpaf
+    - bekozi
