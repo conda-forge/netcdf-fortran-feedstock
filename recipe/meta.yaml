@@ -5,14 +5,13 @@ package:
   version: {{ version }}
 
 source:
-  fn: netcdf-fortran-{{ version }}.tar.gz
   url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
   sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
   patches:
     - no_clang.patch  # [osx]
 
 build:
-  number: 3
+  number: 4
   skip: True  # [win]
 
 requirements:
@@ -30,8 +29,8 @@ test:
   commands:
     #- nf-config --all  # FIXME: no nf-config for cmake
     - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
-    - conda inspect linkages -p $PREFIX netcdf-fortran  # [not win]
-    - conda inspect objects -p $PREFIX netcdf-fortran  # [osx]
+    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
+    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
