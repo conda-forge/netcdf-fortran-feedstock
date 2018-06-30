@@ -1,0 +1,13 @@
+c_compiler:
+- toolchain_c
+fortran_compiler:
+- toolchain_fort
+hdf5:
+- 1.10.2
+libnetcdf:
+- '4.6'
+pin_run_as_build:
+  hdf5:
+    max_pin: x.x.x
+  libnetcdf:
+    max_pin: x.x

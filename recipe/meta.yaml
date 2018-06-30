@@ -11,21 +11,21 @@ source:
     - no_clang.patch  # [osx]
 
 build:
-  number: 7
+  number: 8
   skip: True  # [win]
 
 requirements:
   build:
     - cmake
-    - libnetcdf 4.5.*
-    - hdf5 1.10.1
     - pkg-config  # [not win]
-    - gcc  # [not win]
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+  host:
+    - libnetcdf
+    - hdf5
   run:
-    - libnetcdf >=4.5
-    - hdf5 1.10.1
-    - libgcc  # [linux]
-    - libgfortran  # [osx]
+    - libnetcdf
+    - hdf5
 
 test:
   commands:
