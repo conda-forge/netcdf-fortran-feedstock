@@ -15,6 +15,9 @@ elif [[ `uname` == 'Darwin' ]] && [[ "$CC" != "clang" ]]; then
     export CMAKE_PLATFORM_FLAGS="-DCMAKE_OSX_SYSROOT=\"${CONDA_BUILD_SYSROOT}\""
 fi
 
+# for debugging
+echo "CMAKE_PLATFORM_FLAGS: ${CMAKE_PLATFORM_FLAGS}"
+
 # Build static.
 mkdir build_static && cd build_static
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
