@@ -9,20 +9,21 @@ fi
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
-declare -a CMAKE_PLATFORM_FLAGS
-if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
-    CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
-fi
+# declare -a CMAKE_PLATFORM_FLAGS
+# if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
+#     CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
+# fi
+
+sed -i.bak 's#/Users/travis/miniconda3/conda-bld/libnetcdf_1543088686264/_build_env#\$\{BUILD_PREFIX\}#' `which nc-config`
 
 # Build static.
 mkdir build_static && cd build_static
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=OFF \
-      ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
-make VERBOSE=1
+make
 # ctest  # Run only for the shared lib build to save time.
 make install
 
@@ -34,10 +35,9 @@ mkdir build_shared && cd build_shared
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=ON \
-      ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
-make VERBOSE=1
+make
 ctest
 make install
 
