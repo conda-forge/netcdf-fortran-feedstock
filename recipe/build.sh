@@ -9,8 +9,9 @@ fi
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
+declare -a CMAKE_PLATFORM_FLAGS
 if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
-    export CMAKE_PLATFORM_FLAGS="-DCMAKE_TOOLCHAIN_FILE=\"${RECIPE_DIR}/cross-linux.cmake\""
+    CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
 fi
 
 # Build static.
@@ -18,6 +19,7 @@ mkdir build_static && cd build_static
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=OFF \
+      ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
 make
@@ -32,6 +34,7 @@ mkdir build_shared && cd build_shared
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=ON \
+      ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
 make
