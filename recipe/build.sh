@@ -6,10 +6,14 @@ elif [[ $(uname) == Linux ]]; then
   export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-export LDFLAGS="$LDFLAGS --sysroot=${CONDA_PREFIX}/${HOST}/sysroot -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
-export CFLAGS="$CFLAGS --sysroot=${CONDA_PREFIX}/${HOST}/sysroot -fPIC -I$PREFIX/include"
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
-env
+if [[ `uname` == 'Linux' ]] && [[ "$CC" != "gcc" ]]; then
+    export CMAKE_PLATFORM_FLAGS="-DCMAKE_TOOLCHAIN_FILE=\"${RECIPE_DIR}/cross-linux.cmake\""
+elif [[ `uname` == 'Darwin' ]] && [[ "$CC" != "clang" ]]; then
+    export CMAKE_PLATFORM_FLAGS="-DCMAKE_OSX_SYSROOT=\"${CONDA_BUILD_SYSROOT}\""
+fi
 
 # Build static.
 mkdir build_static && cd build_static
