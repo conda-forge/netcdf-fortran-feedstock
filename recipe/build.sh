@@ -6,8 +6,10 @@ elif [[ $(uname) == Linux ]]; then
   export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-export LDFLAGS="$LDFLAGS --sysroot=${HOST}/sysroot -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
-export CFLAGS="$CFLAGS --sysroot=${HOST}/sysroot -fPIC -I$PREFIX/include"
+export LDFLAGS="$LDFLAGS --sysroot=${CONDA_PREFIX}/${HOST}/sysroot -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
+export CFLAGS="$CFLAGS --sysroot=${CONDA_PREFIX}/${HOST}/sysroot -fPIC -I$PREFIX/include"
+
+env
 
 # Build static.
 mkdir build_static && cd build_static
