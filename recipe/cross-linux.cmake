@@ -1,7 +1,7 @@
 # this one is important
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_PLATFORM Linux)
-#this one not so much
+# this one not so much
 set(CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
@@ -14,8 +14,9 @@ set(CMAKE_FIND_ROOT_PATH $ENV{PREFIX} $ENV{CONDA_PREFIX}/$ENV{HOST}/sysroot)
 # search for programs in the build host directories
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 # for libraries and headers in the target directories
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+# should be only, but I am hacking
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE BOTH)
 
 # god-awful hack because it seems to not run correct tests to determine this:
 set(__CHAR_UNSIGNED___EXITCODE 1)
