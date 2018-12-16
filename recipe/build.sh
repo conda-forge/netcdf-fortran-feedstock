@@ -22,7 +22,7 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
-make
+make VERBOSE=1
 # ctest  # Run only for the shared lib build to save time.
 make install
 
@@ -37,7 +37,7 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       ${CMAKE_PLATFORM_FLAGS[@]} \
       $SRC_DIR
 
-make
+make VERBOSE=1
 ctest
 make install
 
