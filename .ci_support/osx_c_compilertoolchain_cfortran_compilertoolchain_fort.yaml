@@ -1,5 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
+build_number_decrement:
+- '1000'
 c_compiler:
 - toolchain_c
 channel_sources:
@@ -9,7 +11,7 @@ channel_targets:
 fortran_compiler:
 - toolchain_fort
 hdf5:
-- 1.10.3
+- 1.10.4
 libnetcdf:
 - '4.6'
 macos_machine:
@@ -17,7 +19,11 @@ macos_machine:
 macos_min_version:
 - '10.9'
 pin_run_as_build:
-  hdf5:
-    max_pin: x.x.x
   libnetcdf:
     max_pin: x.x
+zip_keys:
+- - c_compiler
+  - fortran_compiler
+  - channel_sources
+  - channel_targets
+  - build_number_decrement
