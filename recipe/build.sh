@@ -11,13 +11,7 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
 if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
     export CMAKE_PLATFORM_FLAGS="-DCMAKE_TOOLCHAIN_FILE=\"${RECIPE_DIR}/cross-linux.cmake\""
-elif [[ `uname` == "Darwin" ]] && [[ "$CC" != "clang" ]]; then
-    echo "here"
-    export CMAKE_PLATFORM_FLAGS="-DCMAKE_OSX_SYSROOT=\"${CONDA_BUILD_SYSROOT}\""
 fi
-
-# for debugging
-echo "CMAKE_PLATFORM_FLAGS: ${CMAKE_PLATFORM_FLAGS}"
 
 # Build static.
 mkdir build_static && cd build_static
