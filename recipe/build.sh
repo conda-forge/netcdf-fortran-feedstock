@@ -14,9 +14,6 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 #     CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
 # fi
 
-sed -i.bak 's#/home/conda/feedstock_root/build_artifacts/libnetcdf_1542306222682/_build_env#\$\{BUILD_PREFIX\}#' `which nc-config`
-nc-config --all
-
 # Build static.
 mkdir build_static && cd build_static
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
