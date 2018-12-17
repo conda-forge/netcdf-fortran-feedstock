@@ -22,7 +22,7 @@ requirements:
     - {{ compiler('c') }}
   host:
     - libnetcdf >=4.6.2
-    - hdf5 =1.10.3
+    - hdf5
 
 test:
   commands:
