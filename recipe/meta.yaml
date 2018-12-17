@@ -21,7 +21,7 @@ requirements:
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
   host:
-    - libnetcdf
+    - libnetcdf >=4.6.2
     - hdf5 =1.10.3
 
 test:
