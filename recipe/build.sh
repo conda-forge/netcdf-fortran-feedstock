@@ -34,7 +34,7 @@ cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       $SRC_DIR
 
 make
-# ctest
+ctest
 make install
 
 # We can remove this when we start using the new conda-build.
