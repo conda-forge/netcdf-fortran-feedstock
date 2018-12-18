@@ -19,9 +19,10 @@ rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
 # Build static.
 mkdir build_static && cd build_static
-cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
-      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -D BUILD_SHARED_LIBS=OFF \
+cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+      -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -DBUILD_SHARED_LIBS=OFF \
+      -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
@@ -33,9 +34,10 @@ make clean
 cd ..
 mkdir build_shared && cd build_shared
 # Build shared.
-cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
-      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -D BUILD_SHARED_LIBS=ON \
+cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
+      -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -DBUILD_SHARED_LIBS=ON \
+      -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
