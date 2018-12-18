@@ -12,11 +12,6 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
-# declare -a CMAKE_PLATFORM_FLAGS
-# if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
-#     CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
-# fi
-
 # Build static.
 mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
