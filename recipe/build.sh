@@ -14,14 +14,18 @@ rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
 # And a total hack - the anaconda compiler build looks for stuff that
 # is supposed to be in CONDA_BUILD_SYSROOT in /usr/lib
-# if [[ `uname` == "Darwin" ]] && [[ "${CC}" != "clang" ]]; then
-#     mkdir -p /usr/lib/system
-#     for lb in `ls ${CONDA_BUILD_SYSROOT}/usr/lib/system/*.dylib`; do
-#         if [ ! -f /usr/lib/system/`basename $lb` ]; then
-#             sudo ln -s $lb /usr/lib/system/`basename $lb`
-#         fi
-#     done
-# fi
+if [[ `uname` == "Darwin" ]] && [[ "${CC}" != "clang" ]]; then
+    export LDFLAGS="$LDFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
+    export CFLAGS="$CFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
+    export FFLAGS="$FFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
+
+    # mkdir -p /usr/lib/system
+    # for lb in `ls ${CONDA_BUILD_SYSROOT}/usr/lib/system/*.dylib`; do
+    #     if [ ! -f /usr/lib/system/`basename $lb` ]; then
+    #         sudo ln -s $lb /usr/lib/system/`basename $lb`
+    #     fi
+    # done
+fi
 
 # Build static.
 mkdir build_static && cd build_static
@@ -30,7 +34,6 @@ cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DBUILD_SHARED_LIBS=OFF \
       $SRC_DIR
 
-cat Makefile
 make
 # ctest  # Run only for the shared lib build to save time.
 make install
