@@ -12,6 +12,15 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
+# And a total hack - the anaconda compiler build looks for stuff that
+# is supposed to be in CONDA_BUILD_SYSROOT in /usr/lib
+if [[ `uname` == "Darwin" ]] && [[ "${CC}" != "clang" ]]; then
+    mkdir -p /usr/lib/system
+    for lb in `ls ${CONDA_BUILD_SYSROOT}/usr/lib/system/*.dylib`; do
+        ln -s $lb /usr/lib/system/`basename $lb`
+    done
+fi
+
 # Build static.
 mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
