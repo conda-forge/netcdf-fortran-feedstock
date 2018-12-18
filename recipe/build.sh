@@ -9,6 +9,9 @@ fi
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
+# This really mucks with the build.
+rm -rf ${PREFIX}/lib/cmake/netCDF/*
+
 # declare -a CMAKE_PLATFORM_FLAGS
 # if [[ `uname` == "Linux" ]] && [[ "$CC" != "gcc" ]]; then
 #     CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
@@ -36,7 +39,7 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       $SRC_DIR
 
 make
-ctest
+# ctest
 make install
 
 # We can remove this when we start using the new conda-build.
