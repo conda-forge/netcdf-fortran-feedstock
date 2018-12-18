@@ -22,7 +22,6 @@ mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -DBUILD_SHARED_LIBS=OFF \
-      -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
@@ -37,7 +36,6 @@ mkdir build_shared && cd build_shared
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -DBUILD_SHARED_LIBS=ON \
-      -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
