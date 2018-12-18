@@ -10,17 +10,10 @@ channel_targets:
 - conda-forge gcc7
 fortran_compiler:
 - gfortran
-hdf5:
-- 1.10.4
-libnetcdf:
-- '4.6'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 macos_min_version:
 - '10.9'
-pin_run_as_build:
-  libnetcdf:
-    max_pin: x.x
 zip_keys:
 - - c_compiler
   - fortran_compiler
