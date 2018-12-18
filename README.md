@@ -16,7 +16,8 @@ Summary: Unidata NetCDF Fortran Library
 Current build status
 ====================
 
-[![Linux,OSX](https://img.shields.io/circleci/project/github/conda-forge/netcdf-fortran-feedstock/master.svg?label=Linux,OSX)](https://circleci.com/gh/conda-forge/netcdf-fortran-feedstock)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/netcdf-fortran-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/netcdf-fortran-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/netcdf-fortran-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/netcdf-fortran-feedstock)
 ![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info

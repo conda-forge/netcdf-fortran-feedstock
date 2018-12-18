@@ -27,6 +27,8 @@ rm -rf ${PREFIX}/lib/cmake/netCDF/*
 #     # done
 # fi
 
+export CMAKE_PREFIX_PATH=$PREFIX:${CONDA_BUILD_SYSROOT}
+
 # Build static.
 mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
