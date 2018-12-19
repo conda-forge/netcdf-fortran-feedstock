@@ -6,9 +6,9 @@ elif [[ $(uname) == Linux ]]; then
   export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf --sysroot=${CONDA_BUILD_SYSROOT}"
-export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include -isysroot=${CONDA_BUILD_SYSROOT}"
-export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include -isysroot=${CONDA_BUILD_SYSROOT}"
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
+export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include"
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
