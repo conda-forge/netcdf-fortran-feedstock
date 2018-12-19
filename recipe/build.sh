@@ -7,13 +7,13 @@ elif [[ $(uname) == Linux ]]; then
 fi
 
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf --sysroot=${CONDA_BUILD_SYSROOT}"
-export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include --sysroot=${CONDA_BUILD_SYSROOT}"
-export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include --sysroot=${CONDA_BUILD_SYSROOT}"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include -isysroot=${CONDA_BUILD_SYSROOT}"
+export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include -isysroot=${CONDA_BUILD_SYSROOT}"
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
-# ls -1 /usr/lib/system/*
+ls -1ah /usr/lib/system/*
 # ls -1 /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/system/*
 
 # Build static.
