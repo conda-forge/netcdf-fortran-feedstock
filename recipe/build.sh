@@ -12,7 +12,8 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
-ls -1 /usr/lib/system/*
+# ls -1 /usr/lib/system/*
+ls -1 /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/system/*
 
 # Build static.
 mkdir build_static && cd build_static
