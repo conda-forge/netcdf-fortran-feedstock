@@ -24,10 +24,10 @@ make
 make install
 
 make clean
-
 cd ..
-mkdir build_shared && cd build_shared
+
 # Build shared.
+mkdir build_shared && cd build_shared
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -DBUILD_SHARED_LIBS=ON \
