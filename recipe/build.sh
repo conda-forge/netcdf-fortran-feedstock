@@ -6,28 +6,11 @@ elif [[ $(uname) == Linux ]]; then
   export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib"
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
-
-# And a total hack - the anaconda compiler build looks for stuff that
-# is supposed to be in CONDA_BUILD_SYSROOT in /usr/lib
-# if [[ `uname` == "Darwin" ]] && [[ "${CC}" != "clang" ]]; then
-#     # export LDFLAGS="$LDFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
-#     # export CFLAGS="$CFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
-#     # export FFLAGS="$FFLAGS --sysroot=${CONDA_BUILD_SYSROOT}"
-#
-#     # mkdir -p /usr/lib/system
-#     # for lb in `ls ${CONDA_BUILD_SYSROOT}/usr/lib/system/*.dylib`; do
-#     #     if [ ! -f /usr/lib/system/`basename $lb` ]; then
-#     #         sudo ln -s $lb /usr/lib/system/`basename $lb`
-#     #     fi
-#     # done
-# fi
-
-export CMAKE_PREFIX_PATH=$PREFIX:${CONDA_BUILD_SYSROOT}
 
 # Build static.
 mkdir build_static && cd build_static
