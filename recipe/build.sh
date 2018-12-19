@@ -6,8 +6,9 @@ elif [[ $(uname) == Linux ]]; then
   export LIBRARY_SEARCH_VAR=LD_LIBRARY_PATH
 fi
 
-export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
-export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
+export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf --sysroot=${CONDA_BUILD_SYSROOT}"
+export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include --sysroot=${CONDA_BUILD_SYSROOT}"
+export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include --sysroot=${CONDA_BUILD_SYSROOT}"
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
@@ -20,7 +21,6 @@ mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -DBUILD_SHARED_LIBS=OFF \
-      -DCMAKE_SYSTEM_PREFIX_PATH=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
@@ -35,7 +35,6 @@ mkdir build_shared && cd build_shared
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -DBUILD_SHARED_LIBS=ON \
-      -DCMAKE_SYSTEM_PREFIX_PATH=${CONDA_BUILD_SYSROOT} \
       $SRC_DIR
 
 make
