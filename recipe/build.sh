@@ -13,7 +13,7 @@ export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include -isysroot=${CONDA_BUILD_SYSROOT}"
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
-ls -1ah /usr/lib/system/*
+ls -lah /usr/lib/system/*
 # ls -1 /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/system/*
 
 # Build static.
