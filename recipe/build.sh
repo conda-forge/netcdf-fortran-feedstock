@@ -12,6 +12,8 @@ export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
+ls -1 /usr/lib/system/*
+
 # Build static.
 mkdir build_static && cd build_static
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
