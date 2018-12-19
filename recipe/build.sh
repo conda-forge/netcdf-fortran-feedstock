@@ -8,13 +8,9 @@ fi
 
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
-export FFLAGS="$FFLAGS -fPIC -I$PREFIX/include"
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
-
-ls -lah /usr/lib/system/*
-# ls -1 /Applications/Xcode-9.4.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/system/*
 
 # Build static.
 mkdir build_static && cd build_static
