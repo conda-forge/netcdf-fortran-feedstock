@@ -8,6 +8,9 @@ fi
 
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
+if [[ $(uname) == Darwin ]] && [[ "${CC}" != "clang" ]]; then
+  export FFLAGS="-isysroot $CONDA_BUILD_SYSROOT $FFLAGS"
+fi
 
 # This really mucks with the build.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
