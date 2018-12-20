@@ -13,13 +13,18 @@ if [[ $(uname) == Darwin ]] && [[ "${CC}" != "clang" ]]; then
 fi
 
 # This really mucks with the build.
+# The cmake build in this repo appears to use the information from the
+# cmake build of libnetcdf. This causes incorrect linkages, missing libraries
+# and general chaos in the builds here. An attempt at patching upstream was
+# made, but getting that working fully and robustly appears difficult. This
+# should just work all the time.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
 # Build static.
 mkdir build_static && cd build_static
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-      -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -DBUILD_SHARED_LIBS=OFF \
+cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -D BUILD_SHARED_LIBS=OFF \
       $SRC_DIR
 
 make
@@ -31,9 +36,9 @@ cd ..
 
 # Build shared.
 mkdir build_shared && cd build_shared
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX \
-      -DCMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -DBUILD_SHARED_LIBS=ON \
+cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+      -D BUILD_SHARED_LIBS=ON \
       $SRC_DIR
 
 make
