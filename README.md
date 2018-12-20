@@ -110,6 +110,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@beckermr](https://github.com/beckermr/)
 * [@bekozi](https://github.com/bekozi/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 
