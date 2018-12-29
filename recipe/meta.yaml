@@ -9,6 +9,8 @@ source:
   sha256: 44b1986c427989604df9925dcdbf6c1a977e4ecbde6dd459114bca20bf5e9e67
   patches:
     - no_clang.patch  # [osx]
+    - f03tst_open_mem.patch
+    - test03_get.patch
 
 build:
   number: 1010
@@ -21,8 +23,8 @@ requirements:
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
   host:
-    - libnetcdf <=4.6.1
-    - hdf5 <=1.10.3
+    - libnetcdf
+    - hdf5
 
 test:
   commands:
