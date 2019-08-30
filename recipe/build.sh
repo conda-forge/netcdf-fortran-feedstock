@@ -18,7 +18,7 @@ fi
 # and general chaos in the builds here. An attempt at patching upstream was
 # made, but getting that working fully and robustly appears difficult. This
 # should just work all the time.
-rm -rf ${PREFIX}/lib/cmake/netCDF/*
+# rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
 # Build static.
 mkdir build_static && cd build_static
