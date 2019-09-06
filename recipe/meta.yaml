@@ -26,8 +26,8 @@ requirements:
 
 test:
   commands:
-    - nf-config --all
-    - test -f ${PREFIX}/lib/libnetcdf.a  # [unix]
+    - nf-config --help
+    - test -f $PREFIX/lib/libnetcdf.a  # [not win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
