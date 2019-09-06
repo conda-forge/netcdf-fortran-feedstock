@@ -13,25 +13,3 @@
  ENDIF()
  
  # Determine C library setting for NC_RELAX_COORD_BOUND
-@@ -719,7 +713,7 @@ ENDIF(ENABLE_FORTRAN_TYPE_CHECKS)
- # FILE(RENAME "${NC4F_BINARY_DIR}/nf-config.cmake.in" "${NC4F_BINARY_DIR}/nf-config")
- 
- # make sure previous two files get cleaned up...
--SET_DIRECTORY_PROPERTIES (DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${netcdf-fortran_BINARY_DIR}/config.h ${netcdf-fortran_BINARY_DIR}/nf-config)
-+# SET_DIRECTORY_PROPERTIES (DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${netcdf-fortran_BINARY_DIR}/config.h ${netcdf-fortran_BINARY_DIR}/nf-config)
- 
- ##
- # Configuration for post-install RPath
-@@ -842,9 +836,9 @@ IF(CMAKE_LINK_FLAGS)
- ENDIF()
- 
- 
--INSTALL(PROGRAMS ${NC4F_BINARY_DIR}/nf-config
--        DESTINATION "${CMAKE_INSTALL_BINDIR}"
--        COMPONENT utilities)
-+# INSTALL(PROGRAMS ${NC4F_BINARY_DIR}/nf-config
-+#         DESTINATION "${CMAKE_INSTALL_BINDIR}"
-+#         COMPONENT utilities)
- 
- INCLUDE_DIRECTORIES(${NC4F_BINARY_DIR})
- # End autotools-style checks for config.h
