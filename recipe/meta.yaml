@@ -1,4 +1,4 @@
-{% set version = "4.5.1" %}
+{% set version = "4.5.2" %}
 
 package:
   name: netcdf-fortran
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
-  sha256: 9ed063aaa91b209d3d2f57c44d6aa01128c28643a991b99c8bbdfbd52e1dc931
+  sha256: 0b05c629c70d6d224a3be28699c066bfdfeae477aea211fbf034d973a8309b49
   patches:
     - no_clang.patch
 
