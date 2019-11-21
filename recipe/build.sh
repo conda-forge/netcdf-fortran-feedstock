@@ -1,5 +1,17 @@
 #!/bin/bash
 
+if [[ -n "$mpi" && "$mpi" != "nompi" ]]; then
+  export PARALLEL="-DENABLE_PARALLEL4=ON -DENABLE_PARALLEL_TESTS=ON"
+  export CC=mpicc
+  export FC=mpif90
+  export F77=mpif77
+else
+  export CC=$(basename ${CC})
+  export FC=$(basename ${FC})
+  export F77=$(basename ${F77})
+  PARALLEL=""
+fi
+
 if [[ $(uname) == Darwin ]]; then
   export LIBRARY_SEARCH_VAR=DYLD_FALLBACK_LIBRARY_PATH
 elif [[ $(uname) == Linux ]]; then
@@ -25,6 +37,7 @@ mkdir build_static && cd build_static
 cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=OFF \
+      ${PARALLEL} \
       $SRC_DIR
 
 make
@@ -44,6 +57,3 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
 make
 ctest
 make install
-
-# We can remove this when we start using the new conda-build.
-find $PREFIX -name '*.la' -delete
