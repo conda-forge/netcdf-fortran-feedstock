@@ -10,11 +10,14 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      osx_fortran_compiler_version4:
-        CONFIG: osx_fortran_compiler_version4
+      osx_mpimpich:
+        CONFIG: osx_mpimpich
         UPLOAD_PACKAGES: True
-      osx_fortran_compiler_version7:
-        CONFIG: osx_fortran_compiler_version7
+      osx_mpinompi:
+        CONFIG: osx_mpinompi
+        UPLOAD_PACKAGES: True
+      osx_mpiopenmpi:
+        CONFIG: osx_mpiopenmpi
         UPLOAD_PACKAGES: True
 
   steps:
@@ -71,8 +74,9 @@ jobs:
 
   - script: |
       source activate base
+      export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
       upload_package ./ ./recipe ./.ci_support/${CONFIG}.yaml
-    displayName: Upload recipe
+    displayName: Upload package
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
     condition: not(eq(variables['UPLOAD_PACKAGES'], 'False'))
