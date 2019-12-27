@@ -22,6 +22,3 @@ macos_min_version:
 - '10.9'
 mpi:
 - openmpi
-pin_run_as_build:
-  libnetcdf:
-    max_pin: x.x.x
