@@ -57,8 +57,11 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
 
 test:
+  requires:
+    - {{ compiler('fortran') }}
   commands:
     - nf-config --help
+    - test -f $(nc-config --fc)
     - test -f $PREFIX/lib/libnetcdf.a  # [not win]
 
 about:
