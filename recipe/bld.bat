@@ -4,8 +4,9 @@ set "LIBRARY_PREFIX=%LIBRARY_PREFIX:\=/%"
 set "MINGWBIN=%LIBRARY_PREFIX%/mingw-w64/bin"
 
 :: These flags cause errors during CMake; disable for now?
-REM set "LDFLAGS=%LDFLAGS% -L%LIBRARY_PREFIX%/lib -Wl,-rpath,%LIBRARY_PREFIX%/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
-REM set "CFLAGS=%CFLAGS% -fPIC -I%LIBRARY_PREFIX%/include"
+set "LDFLAGS=-L%LIBRARY_PREFIX%/lib -Wl,-rpath,%LIBRARY_PREFIX%/lib"
+::            Left out: -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf
+set "CFLAGS=-fPIC -I%LIBRARY_PREFIX%/include"
 :: PENDING -> PARALLEL MPI STUFF
 set PARALLEL=""
 
