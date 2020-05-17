@@ -22,7 +22,7 @@ rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
 rmdir build_static /s /q
 mkdir build_static
 cd build_static
-cmake -G "Unix Makefiles" ^
+cmake -G "MinGW Makefiles" ^
       -D CMAKE_BUILD_TYPE=Release ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D CMAKE_INSTALL_LIBDIR:PATH=%LIBRARY_PREFIX%/lib ^
@@ -33,22 +33,22 @@ cmake -G "Unix Makefiles" ^
       %SRC_DIR%
 if errorlevel 1 exit 1
 
-make
+mingw32-make
 if errorlevel 1 exit 1
 :: ctest
 :: if errorlevel 1 exit 1
-make install
+mingw32-make install
 if errorlevel 1 exit 1
 
 
-make clean
+mingw32-make clean
 cd ..
 
 :: Build shared.
 rmdir build_shared /s /q
 mkdir build_shared
 cd build_shared
-cmake -G "Unix Makefiles" ^
+cmake -G "MinGW Makefiles" ^
       -D CMAKE_BUILD_TYPE=Release ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D CMAKE_INSTALL_LIBDIR:PATH=%LIBRARY_PREFIX%/lib ^
@@ -58,11 +58,11 @@ cmake -G "Unix Makefiles" ^
       %SRC_DIR%
 if errorlevel 1 exit 1
 
-make
+mingw32-make
 if errorlevel 1 exit 1
 ctest
 if errorlevel 1 exit 1
-make install
+mingw32-make install
 if errorlevel 1 exit 1
 
 cd %cwd%
