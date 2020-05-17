@@ -39,8 +39,11 @@ requirements:
   build:
     - cmake
     - pkg-config  # [not win]
-    - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
+    - m2w64-pkg-config  # [win]
+    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler('c') }}  # [not win]
+    - {{ compiler('m2w64_c') }}  # [win]
     - make
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
@@ -57,11 +60,13 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
   commands:
     - nf-config --help
-    - test -f $(nc-config --fc)
+    - test -f $(nc-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdf.a  # [not win]
+    - if not exist %LIBRARY_LIB%\libnetcdf.a exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
