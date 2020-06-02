@@ -1,5 +1,5 @@
-{% set version = "4.5.2" %}
-{% set build = 6 %}
+{% set version = "4.5.3" %}
+{% set build = 0 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -14,14 +14,14 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
-  sha256: 0b05c629c70d6d224a3be28699c066bfdfeae477aea211fbf034d973a8309b49
+  sha256: c6da30c2fe7e4e614c1dff4124e857afbd45355c6798353eccfa60c0702b495a
   patches:
     - no_clang.patch
 
 build:
   number: {{ build }}
-  skip: True  # [win]
-  merge_build_host: True
+  skip: true  # [win]
+  merge_build_host: true
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
@@ -34,7 +34,7 @@ build:
   {% else %}
   {% set mpi_prefix = "nompi" %}
   {% endif %}
-  string: "{{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}"
+  string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
 
 requirements:
   build:
@@ -68,7 +68,7 @@ about:
   home: https://github.com/Unidata/netcdf-fortran
   license: http://www.unidata.ucar.edu/software/netcdf/copyright.html
   license_file: COPYRIGHT
-  summary: 'Unidata NetCDF Fortran Library'
+  summary: Unidata NetCDF Fortran Library
 
 extra:
   recipe-maintainers:
