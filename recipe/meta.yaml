@@ -38,6 +38,7 @@ build:
 
 requirements:
   build:
+  host:
     - cmake
     - pkg-config  # [not win]
     - {{ compiler('fortran') }}
