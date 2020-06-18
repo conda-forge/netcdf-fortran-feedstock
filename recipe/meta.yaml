@@ -51,7 +51,6 @@ requirements:
     - hdf5
     - hdf5 * {{ mpi_prefix }}_*
     - {{ mpi }}  # [mpi != 'nompi']
-  host:
   run:
     - libnetcdf * {{ mpi_prefix }}_*
     - hdf5 * {{ mpi_prefix }}_*
