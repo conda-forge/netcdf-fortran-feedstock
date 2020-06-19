@@ -48,7 +48,7 @@ build:
 
 requirements:
   build:
-    - cmake  # [unix]
+    - cmake
     - m2-autoconf  # [win]
     - m2-sed  # [win]
     - m2-grep  # [win]
