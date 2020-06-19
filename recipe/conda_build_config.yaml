@@ -1,8 +1,4 @@
 mpi:
   - nompi
-  - mpich # [not win]
-  - openmpi # [not win]
-
-pin_run_as_build:
-  mpich: x.x
-  openmpi: x.x
+  - mpich  # [not win]
+  - openmpi  # [not win]
