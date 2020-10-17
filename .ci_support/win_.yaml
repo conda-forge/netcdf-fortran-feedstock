@@ -1,0 +1,14 @@
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+hdf5:
+- 1.10.6
+libnetcdf:
+- 4.7.4
+m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_fortran_compiler:
+- m2w64-toolchain
+mpi:
+- nompi
