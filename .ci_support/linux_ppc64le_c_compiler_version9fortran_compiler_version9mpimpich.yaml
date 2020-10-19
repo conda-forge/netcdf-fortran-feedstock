@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '8'
+- '9'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -11,10 +11,15 @@ docker_image:
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '8'
+- '9'
 hdf5:
 - 1.10.6
 libnetcdf:
 - 4.7.4
 mpi:
 - mpich
+target_platform:
+- linux-ppc64le
+zip_keys:
+- - c_compiler_version
+  - fortran_compiler_version
