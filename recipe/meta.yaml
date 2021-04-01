@@ -20,7 +20,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: true  # [win]
+  skip: true  # [(win and mpi!='nompi') or (not win)]
   merge_build_host: true
 
   # add build string so packages can depend on
