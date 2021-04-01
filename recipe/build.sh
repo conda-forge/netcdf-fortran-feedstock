@@ -55,5 +55,5 @@ cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
       $SRC_DIR
 
 make
-ctest
+ctest -VV
 make install
