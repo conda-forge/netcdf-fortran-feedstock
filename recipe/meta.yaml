@@ -36,6 +36,12 @@ build:
   {% endif %}
   string: {{ mpi_prefix }}_h{{ PKG_HASH }}_{{ build }}
 
+  {% if mpi != 'nompi' %}
+  {% set build_pin = mpi_prefix + '_*' %}
+  {% else %}
+  {% set build_pin = '' %}
+  {% endif %}
+
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=netcdf-fortran
     - {{ pin_subpackage('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
