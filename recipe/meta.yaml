@@ -21,7 +21,6 @@ source:
 build:
   number: {{ build }}
   skip: true  # [win]
-  merge_build_host: true
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
@@ -48,12 +47,13 @@ build:
 
 requirements:
   build:
-  host:
     - cmake
     - pkg-config  # [not win]
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
     - make  # [not win]
+    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+  host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
     # and build pinning from {{ mpi_prefix }}
     - libnetcdf
