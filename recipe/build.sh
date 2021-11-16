@@ -31,7 +31,7 @@ rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
 # Build static.
 mkdir build_static && cd build_static
-cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=OFF \
       ${PARALLEL} \
@@ -46,7 +46,7 @@ cd ..
 
 # Build shared.
 mkdir build_shared && cd build_shared
-cmake -D CMAKE_INSTALL_PREFIX=$PREFIX \
+cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
       -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
       -D BUILD_SHARED_LIBS=ON \
       $SRC_DIR
