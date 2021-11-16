@@ -12,6 +12,9 @@ else
   PARALLEL=""
 fi
 
+# For cross compiling with openmpi
+export OPAL_PREFIX=$PREFIX
+
 export LDFLAGS="$LDFLAGS -L$PREFIX/lib -Wl,-rpath,$PREFIX/lib -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf"
 export CFLAGS="$CFLAGS -fPIC -I$PREFIX/include"
 if [[ "$target_platform" == osx-* ]]; then
