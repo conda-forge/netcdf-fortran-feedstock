@@ -59,5 +59,7 @@ if [[ $(uname) == Linux ]]; then
   # seems to be needed to find libquadmath.so.0
   export LD_LIBRARY_PATH="$PREFIX/lib:$LD_LIBRARY_PATH"
 fi
-ctest -VV
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+  ctest -VV
+fi
 make install
