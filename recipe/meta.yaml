@@ -16,7 +16,8 @@ source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
   sha256: 1a8613cb639e83e2df5a8e6c21fa48a0c64b053c244abddecec66cfcac03a48a
   patches:
-    - no_clang.patch
+    - 0001-no-clang.patch
+    - 0002-fix-test-file-extension.patch
 
 build:
   number: {{ build }}
