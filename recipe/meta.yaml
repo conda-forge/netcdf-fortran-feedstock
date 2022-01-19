@@ -1,5 +1,5 @@
-{% set version = "4.5.3" %}
-{% set build = 6 %}
+{% set version = "4.5.4" %}
+{% set build = 0 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -14,7 +14,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v{{ version }}.tar.gz
-  sha256: c6da30c2fe7e4e614c1dff4124e857afbd45355c6798353eccfa60c0702b495a
+  sha256: 1a8613cb639e83e2df5a8e6c21fa48a0c64b053c244abddecec66cfcac03a48a
   patches:
     - no_clang.patch
 
