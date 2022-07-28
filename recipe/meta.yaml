@@ -44,7 +44,7 @@ build:
 
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=netcdf-fortran
-    - {{ pin_subpackage('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
+    - {{ pin_compatible('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
 
 requirements:
   build:
