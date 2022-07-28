@@ -1,5 +1,5 @@
 {% set version = "4.5.4" %}
-{% set build = 0 %}
+{% set build = 1 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -44,7 +44,7 @@ build:
 
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=netcdf-fortran
-    - {{ pin_subpackage('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
+    - {{ pin_compatible('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
 
 requirements:
   build:
