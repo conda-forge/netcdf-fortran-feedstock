@@ -52,7 +52,7 @@ cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
       $SRC_DIR
 
 make -j${CPU_COUNT}
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
   ctest -VV
 fi
 make install
