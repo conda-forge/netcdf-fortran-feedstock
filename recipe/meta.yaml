@@ -44,7 +44,7 @@ build:
 
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=netcdf-fortran
-    - {{ pin_compatible('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
+    - {{ pin_subpackage('netcdf-fortran', max_pin='x.x') }} {{ build_pin }}
 
 requirements:
   build:
@@ -72,8 +72,8 @@ test:
     - {{ compiler('fortran') }}
   commands:
     - nf-config --help
-    - test -f $(nc-config --fc)
-    - test -f $PREFIX/lib/libnetcdf.a  # [not win]
+    - test -f $(nf-config --fc)
+    - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
