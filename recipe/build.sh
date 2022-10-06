@@ -29,21 +29,6 @@ fi
 # should just work all the time.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
-# Build static.
-mkdir build_static && cd build_static
-cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
-      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -D BUILD_SHARED_LIBS=OFF \
-      ${PARALLEL} \
-      $SRC_DIR
-
-make
-# ctest  # Run only for the shared lib build to save time.
-make install
-
-make clean
-cd ..
-
 # Build shared.
 mkdir build_shared && cd build_shared
 cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
