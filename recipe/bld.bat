@@ -1,9 +1,9 @@
 mkdir %SRC_DIR%\build
 cd %SRC_DIR%\build
 
-set BUILD_TYPE=Release
+:: set BUILD_TYPE=Release
 :: set BUILD_TYPE=RelWithDebInfo
-:: set BUILD_TYPE=Debug
+set BUILD_TYPE=Debug
 
 cmake -LAH -G "NMake Makefiles" ^
       -D CMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
@@ -13,7 +13,7 @@ cmake -LAH -G "NMake Makefiles" ^
       %SRC_DIR%
 if errorlevel 1 exit \b 1
 
-cmake --build . --config %BUILD_TYPE% --target install
+cmake --build . --config %BUILD_TYPE% --target install --verbose
 if errorlevel 1 exit \b 1
 
 rem :: We need to add some entries to PATH before running the tests
