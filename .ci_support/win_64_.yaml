@@ -7,7 +7,7 @@ channel_targets:
 fortran_compiler:
 - flang
 fortran_compiler_version:
-- '5'
+- '11'
 hdf5:
 - 1.12.2
 libnetcdf:
