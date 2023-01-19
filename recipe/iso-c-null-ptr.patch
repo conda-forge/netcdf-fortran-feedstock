@@ -1,0 +1,11 @@
+diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.orig/fortran/nf_var1io.F90 netcdf-fortran-4.6.0/fortran/nf_var1io.F90
+--- netcdf-fortran-4.6.0.orig/fortran/nf_var1io.F90	2022-07-29 21:37:55.000000000 +0200
++++ netcdf-fortran-4.6.0/fortran/nf_var1io.F90	2023-01-19 12:34:02.318120303 +0100
+@@ -36,6 +36,7 @@
+ ! Write out a single character variable to location vector ndex in dataset
+ 
+  USE netcdf_nc_interfaces
++ USE ISO_C_BINDING, ONLY: C_NULL_PTR
+ 
+  Implicit NONE
+ 
