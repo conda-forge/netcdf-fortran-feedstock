@@ -3,5 +3,11 @@ mpi:
   - openmpi  # [not win]
   - mpich  # [not win]
 
-fortran_compiler_version:
+c_compiler:    # [win]
+  - vs2019     # [win]
+
+cxx_compiler:  # [win]
+  - vs2019     # [win]
+
+fortran_compiler_version:  # [win64]
   - 11  # [win64]
