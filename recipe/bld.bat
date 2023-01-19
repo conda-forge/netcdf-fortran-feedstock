@@ -5,7 +5,10 @@ cd %SRC_DIR%\build
 :: set BUILD_TYPE=RelWithDebInfo
 set BUILD_TYPE=Debug
 
+set "FFLAGS=-save-temps %FFLAGS%"
+
 cmake -LAH -G "NMake Makefiles" ^
+      %CMAKE_ARGS% ^
       -D CMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
       -D BUILD_SHARED_LIBS=ON ^
       -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
