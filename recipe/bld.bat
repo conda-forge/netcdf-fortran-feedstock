@@ -18,26 +18,32 @@ set PARALLEL=""
 :: should just work all the time.
 rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
 
+:: set BUILD_TYPE=Release
+:: set BUILD_TYPE=RelWithDebInfo
+set BUILD_TYPE=Debug
+
 :: Build static.
 rmdir build_static /s /q
 mkdir build_static
 cd build_static
-cmake -G "MinGW Makefiles" ^
-      -D CMAKE_BUILD_TYPE=Release ^
+cmake -LAH -G "MinGW Makefiles" ^
+      %CMAKE_ARGS% ^
+      -D CMAKE_BUILD_TYPE=%BUILD_TYPE% ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
-      -D CMAKE_INSTALL_LIBDIR:PATH=%LIBRARY_PREFIX%/lib ^
       -D BUILD_SHARED_LIBS=OFF ^
       -D CMAKE_C_COMPILER:PATH=%MINGWBIN%/gcc.exe ^
       -D CMAKE_Fortran_COMPILER:PATH=%MINGWBIN%/gfortran.exe ^
+      -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
       %PARALLEL% ^
       %SRC_DIR%
 if errorlevel 1 exit 1
 
-mingw32-make
-if errorlevel 1 exit 1
-:: ctest
-:: if errorlevel 1 exit 1
-mingw32-make install
+cmake --build . --config %BUILD_TYPE% --target install --verbose
+rem mingw32-make
+rem if errorlevel 1 exit 1
+rem :: ctest
+rem :: if errorlevel 1 exit 1
+rem mingw32-make install
 if errorlevel 1 exit 1
 
 
