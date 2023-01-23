@@ -18,37 +18,9 @@ set PARALLEL=""
 :: should just work all the time.
 rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
 
-:: set BUILD_TYPE=Release
+set BUILD_TYPE=Release
 :: set BUILD_TYPE=RelWithDebInfo
-set BUILD_TYPE=Debug
-
-rem :: Build static.
-rem rmdir build_static /s /q
-rem mkdir build_static
-rem cd build_static
-rem cmake -LAH -G "MinGW Makefiles" ^
-rem       %CMAKE_ARGS% ^
-rem       -D CMAKE_BUILD_TYPE=%BUILD_TYPE% ^
-rem       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
-rem       -D BUILD_SHARED_LIBS=OFF ^
-rem       -D CMAKE_C_COMPILER:PATH=%MINGWBIN%/gcc.exe ^
-rem       -D CMAKE_Fortran_COMPILER:PATH=%MINGWBIN%/gfortran.exe ^
-rem       -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
-rem       %PARALLEL% ^
-rem       %SRC_DIR%
-rem if errorlevel 1 exit 1
-
-rem cmake --build . --config %BUILD_TYPE% --target install --verbose
-rem rem mingw32-make
-rem rem if errorlevel 1 exit 1
-rem rem :: ctest
-rem rem :: if errorlevel 1 exit 1
-rem rem mingw32-make install
-rem if errorlevel 1 exit 1
-
-
-rem mingw32-make clean
-rem cd ..
+:: set BUILD_TYPE=Debug
 
 :: Build shared.
 rmdir build_shared /s /q
@@ -68,12 +40,12 @@ cmake -LAH -G "MinGW Makefiles" ^
       %SRC_DIR%
 if errorlevel 1 exit 1
 
-cmake --build . --config %BUILD_TYPE% --target install --verbose
-rem mingw32-make
-rem if errorlevel 1 exit 1
-rem ctest
-rem if errorlevel 1 exit 1
-rem mingw32-make install
+rem cmake --build . --config %BUILD_TYPE% --target install --verbose
+mingw32-make
+if errorlevel 1 exit 1
+ctest
+if errorlevel 1 exit 1
+mingw32-make install
 if errorlevel 1 exit 1
 
 cd %cwd%
