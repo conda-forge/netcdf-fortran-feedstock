@@ -21,28 +21,18 @@ diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.ori
  IF(BUILD_F90)
 diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.orig/docs/CMakeLists.txt netcdf-fortran-4.6.0/docs/CMakeLists.txt
 --- netcdf-fortran-4.6.0.orig/docs/CMakeLists.txt	2022-07-29 21:37:55.000000000 +0200
-+++ netcdf-fortran-4.6.0/docs/CMakeLists.txt	2023-01-23 16:55:00.941902850 +0100
-@@ -23,13 +23,13 @@
-   FILE(COPY ${IMG_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/html/)
- ENDIF()
- 
--IF(HAVE_M4)
--IF(NOT MSVC)
--       ADD_CUSTOM_TARGET(manpage ALL
++++ netcdf-fortran-4.6.0/docs/CMakeLists.txt	2023-01-23 17:18:00.746996510 +0100
+@@ -26,10 +26,10 @@
+ IF(HAVE_M4)
+ IF(NOT MSVC)
+        ADD_CUSTOM_TARGET(manpage ALL
 -         COMMAND ${NF_M4} '${CMAKE_CURRENT_SOURCE_DIR}/netcdf.m4' > '${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3'
--         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
--         )
-+# IF(HAVE_M4)
-+# IF(NOT MSVC)
-+#        ADD_CUSTOM_TARGET(manpage ALL
-+#          COMMAND ${NF_M4} '${CMAKE_CURRENT_SOURCE_DIR}/netcdf.m4' > '${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3'
-+#          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-+#          )
++         COMMAND ${NF_M4} "${CMAKE_CURRENT_SOURCE_DIR}/netcdf.m4" > "${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3"
+          WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+          )
  
--  INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3 DESTINATION "share/man/man3" COMPONENT documentation)
--ENDIF(NOT MSVC)
+   INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3 DESTINATION "share/man/man3" COMPONENT documentation)
+ ENDIF(NOT MSVC)
 -ENDIF(HAVE_M4)
 \ No newline at end of file
-+#   INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/netcdf_fortran.3 DESTINATION "share/man/man3" COMPONENT documentation)
-+# ENDIF(NOT MSVC)
-+# ENDIF(HAVE_M4)
++ENDIF(HAVE_M4)
