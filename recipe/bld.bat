@@ -44,6 +44,7 @@ rem cmake --build . --config %BUILD_TYPE% --target install --verbose
 mingw32-make
 if errorlevel 1 exit 1
 ctest
+ctest --rerun-failed --output-on-failure
 if errorlevel 1 exit 1
 mingw32-make install
 if errorlevel 1 exit 1
