@@ -43,11 +43,11 @@ if errorlevel 1 exit 1
 rem cmake --build . --config %BUILD_TYPE% --target install --verbose
 mingw32-make
 if errorlevel 1 exit 1
+mingw32-make install
+if errorlevel 1 exit 1
 nf_test\tst_int64.exe
 ctest
 ctest --rerun-failed --output-on-failure --extra-verbose
-if errorlevel 1 exit 1
-mingw32-make install
 if errorlevel 1 exit 1
 
 cd %cwd%
