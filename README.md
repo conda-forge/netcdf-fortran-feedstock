@@ -165,4 +165,5 @@ Feedstock Maintainers
 * [@bekozi](https://github.com/bekozi/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@xylar](https://github.com/xylar/)
+* [@zklaus](https://github.com/zklaus/)
 
