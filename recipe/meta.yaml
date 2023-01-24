@@ -49,20 +49,23 @@ build:
 
 requirements:
   build:
+    # General
     - cmake
+    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+    # Unix
+    - {{ compiler('c') }}  # [unix]
+    - {{ compiler('fortran') }}  # [unix]
+    - make  # [unix]
+    - pkg-config  # [unix]
+    # Win
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - m2-make  # [win]
+    - m2w64-pkg-config  # [win]
+    - m2w64-dlfcn  # [win]
     - m2-autoconf  # [win]
     - m2-sed  # [win]
     - m2-grep  # [win]
-    - pkg-config  # [not win]
-    - m2w64-pkg-config  # [win]
-    - {{ compiler('fortran') }}  # [not win]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}  # [not win]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
-    - m2w64-dlfcn  # [win]
-    - make  # [unix]
-    - m2-make  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
     # and build pinning from {{ mpi_prefix }}
