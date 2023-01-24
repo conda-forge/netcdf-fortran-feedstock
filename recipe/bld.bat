@@ -18,9 +18,9 @@ set PARALLEL=""
 :: should just work all the time.
 rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
 
-set BUILD_TYPE=Release
+:: set BUILD_TYPE=Release
 :: set BUILD_TYPE=RelWithDebInfo
-:: set BUILD_TYPE=Debug
+set BUILD_TYPE=Debug
 
 :: Build shared.
 rmdir build_shared /s /q
@@ -43,6 +43,7 @@ if errorlevel 1 exit 1
 rem cmake --build . --config %BUILD_TYPE% --target install --verbose
 mingw32-make
 if errorlevel 1 exit 1
+nf_test\tst_int64.exe
 ctest
 ctest --rerun-failed --output-on-failure
 if errorlevel 1 exit 1
