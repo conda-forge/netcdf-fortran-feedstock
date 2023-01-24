@@ -63,9 +63,6 @@ requirements:
     - m2-make  # [win]
     - m2w64-pkg-config  # [win]
     - m2w64-dlfcn  # [win]
-    - m2-autoconf  # [win]
-    - m2-sed  # [win]
-    - m2-grep  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
     # and build pinning from {{ mpi_prefix }}
