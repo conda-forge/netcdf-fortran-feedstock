@@ -17,7 +17,7 @@ source:
   sha256: 8194aa70e400c0adfc456127c1d97af2c6489207171d13b10cd754a16da8b0ca
   patches:
     - 0001-no-clang.patch
-    - deactivate-v2.patch
+    - manpage-quoting.patch
 
 build:
   number: {{ build }}
