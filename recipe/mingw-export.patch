@@ -1,0 +1,22 @@
+diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.manpage/fortran/CMakeLists.txt netcdf-fortran-4.6.0/fortran/CMakeLists.txt
+--- netcdf-fortran-4.6.0.manpage/fortran/CMakeLists.txt	2023-01-24 21:36:32.226417058 +0100
++++ netcdf-fortran-4.6.0/fortran/CMakeLists.txt	2023-01-24 21:36:50.178537444 +0100
+@@ -174,12 +174,12 @@
+ 
+ # copied from netcdf-c... Changed from ADD_DEFINITIONS to TARGET_COMPILE_DEFINITIONS
+ # Option to Build DLL
+-IF(WIN32)
+-  OPTION(LINK_TO_SHARED_LIBS "Link to netcdf-c shared library" ON)
+-  IF(LINK_TO_SHARED_LIBS)
+-    TARGET_COMPILE_DEFINITIONS(netcdff_c PRIVATE DLL_NETCDF)
+-  ENDIF()
+-ENDIF()
++# IF(WIN32)
++#   OPTION(LINK_TO_SHARED_LIBS "Link to netcdf-c shared library" ON)
++#   IF(LINK_TO_SHARED_LIBS)
++#     TARGET_COMPILE_DEFINITIONS(netcdff_c PRIVATE DLL_NETCDF)
++#   ENDIF()
++# ENDIF()
+ 
+ ##
+ # Configuration for post-install RPath
