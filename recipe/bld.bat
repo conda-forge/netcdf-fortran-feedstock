@@ -40,7 +40,7 @@ cmake -LAH -G "MinGW Makefiles" ^
       %SRC_DIR%
 if errorlevel 1 exit 1
 
-cmake --build . --config %BUILD_TYPE% --target install --verbose
+cmake --build . --config %BUILD_TYPE% --target install
 if errorlevel 1 exit 1
 ctest
 if errorlevel 1 exit 1
