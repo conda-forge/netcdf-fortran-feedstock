@@ -18,11 +18,10 @@ source:
   patches:
     - 0001-no-clang.patch
     - manpage-quoting.patch
-    - mingw-export.patch
+    - make-v2compat-cachable.patch
 
 build:
   number: {{ build }}
-  skip: true  # [not win]
   merge_build_host: True
 
   # add build string so packages can depend on

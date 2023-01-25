@@ -1,0 +1,20 @@
+diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.manpage/CMakeLists.txt netcdf-fortran-4.6.0/CMakeLists.txt
+--- netcdf-fortran-4.6.0.manpage/CMakeLists.txt	2023-01-24 21:36:32.261417293 +0100
++++ netcdf-fortran-4.6.0/CMakeLists.txt	2023-01-25 13:23:50.069109181 +0100
+@@ -839,6 +839,8 @@
+ 
+ IF(USE_NETCDF_V2)
+   SET(BUILD_V2 ON CACHE BOOL "")
++ELSE()
++  SET(BUILD_V2 OFF CACHE BOOL "")
+ ENDIF()
+ 
+ OPTION(ENABLE_FORTRAN_TYPE_CHECKS
+@@ -852,7 +854,6 @@
+ 
+ # Set the default fortran builds; default is to build f03
+ SET(BUILD_F90 "ON")
+-SET(BUILD_V2 "ON")
+ SET(BUILD_F03 "ON")
+ 
+ IF(BUILD_F90)
