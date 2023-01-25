@@ -1,5 +1,5 @@
 {% set version = "4.6.0" %}
-{% set build = 1 %}
+{% set build = 2 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -17,10 +17,12 @@ source:
   sha256: 8194aa70e400c0adfc456127c1d97af2c6489207171d13b10cd754a16da8b0ca
   patches:
     - 0001-no-clang.patch
+    - manpage-quoting.patch
+    - make-v2compat-cachable.patch
 
 build:
   number: {{ build }}
-  skip: true  # [win]
+  merge_build_host: True  # [win]
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
@@ -47,12 +49,20 @@ build:
 
 requirements:
   build:
+    # General
     - cmake
-    - pkg-config  # [not win]
-    - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
-    - make  # [not win]
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
+    # Unix
+    - {{ compiler('c') }}  # [unix]
+    - {{ compiler('fortran') }}  # [unix]
+    - make  # [unix]
+    - pkg-config  # [unix]
+    # Win
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - m2-make  # [win]
+    - m2w64-pkg-config  # [win]
+    - m2w64-dlfcn  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
     # and build pinning from {{ mpi_prefix }}
@@ -68,11 +78,18 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('fortran') }}
+    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler('m2w64_fortran') }}  # [win]
   commands:
-    - nf-config --all
-    - test -f $(nf-config --fc)
+    - nf-config --all  # [not win]
+    - test -f $(nf-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
+    - test -f $(nc-config --fc)  # [not win]
+    - test -f $PREFIX/lib/libnetcdf.a  # [not win]
+    # MinGW style import lib (.dll.a); check can be removed if we
+    # switch to flang or similar, or if we decide to only ship .lib
+    - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1  # [win]
+    - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
@@ -85,3 +102,4 @@ extra:
     - ocefpaf
     - bekozi
     - xylar
+    - zklaus
