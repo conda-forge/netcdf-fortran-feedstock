@@ -22,6 +22,7 @@ source:
 
 build:
   number: {{ build }}
+  merge_build_host: True
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
