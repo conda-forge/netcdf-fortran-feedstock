@@ -85,7 +85,10 @@ test:
     - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
     - test -f $(nc-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdf.a  # [not win]
+    # MinGW style import lib (.dll.a); check can be removed if we
+    # switch to flang or similar, or if we decide to only ship .lib
     - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1  # [win]
+    - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
