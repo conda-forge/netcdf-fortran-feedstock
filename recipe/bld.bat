@@ -33,6 +33,7 @@ cmake -LAH -G "MinGW Makefiles" ^
       -D BUILD_SHARED_LIBS=ON ^
       -D CMAKE_C_COMPILER:PATH=%MINGWBIN%/gcc.exe ^
       -D CMAKE_Fortran_COMPILER:PATH=%MINGWBIN%/gfortran.exe ^
+      -D CMAKE_GNUtoMS:BOOL=ON ^
       -D CMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
       -D BUILD_V2:BOOL=OFF ^
       %PARALLEL% ^
