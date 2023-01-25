@@ -1,22 +1,11 @@
 diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS netcdf-fortran-4.6.0.manpage/fortran/CMakeLists.txt netcdf-fortran-4.6.0/fortran/CMakeLists.txt
 --- netcdf-fortran-4.6.0.manpage/fortran/CMakeLists.txt	2023-01-24 21:36:32.226417058 +0100
-+++ netcdf-fortran-4.6.0/fortran/CMakeLists.txt	2023-01-24 21:36:50.178537444 +0100
-@@ -174,12 +174,12 @@
- 
- # copied from netcdf-c... Changed from ADD_DEFINITIONS to TARGET_COMPILE_DEFINITIONS
- # Option to Build DLL
--IF(WIN32)
--  OPTION(LINK_TO_SHARED_LIBS "Link to netcdf-c shared library" ON)
--  IF(LINK_TO_SHARED_LIBS)
--    TARGET_COMPILE_DEFINITIONS(netcdff_c PRIVATE DLL_NETCDF)
--  ENDIF()
--ENDIF()
-+# IF(WIN32)
-+#   OPTION(LINK_TO_SHARED_LIBS "Link to netcdf-c shared library" ON)
-+#   IF(LINK_TO_SHARED_LIBS)
-+#     TARGET_COMPILE_DEFINITIONS(netcdff_c PRIVATE DLL_NETCDF)
-+#   ENDIF()
-+# ENDIF()
- 
- ##
- # Configuration for post-install RPath
++++ netcdf-fortran-4.6.0/fortran/CMakeLists.txt	2023-01-25 12:51:48.941666397 +0100
+@@ -146,6 +146,7 @@
+ # Builds only static, not shared
+ # Compile C-code to object, then link with Fortran
+ ADD_LIBRARY(netcdff_c OBJECT ${netcdff_C_SOURCES})
++TARGET_LINK_LIBRARIES(netcdff_c PUBLIC netCDF::netcdf)
+ install(TARGETS netcdff_c OBJECTS DESTINATION lib)
+ # or is this better?   list(APPEND NETCDF_C_LIBRARY netcdff_c)
+ SET(NETCDF_C_LIBRARY ${NETCDF_C_LIBRARY} netcdff_c)
