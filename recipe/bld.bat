@@ -35,7 +35,7 @@ cmake -LAH -G "MinGW Makefiles" ^
       -D CMAKE_Fortran_COMPILER:PATH=%MINGWBIN%/gfortran.exe ^
       -D CMAKE_GNUtoMS:BOOL=ON ^
       -D CMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
-      -D BUILD_V2:BOOL=OFF ^
+      -D BUILD_V2:BOOL=ON ^
       %PARALLEL% ^
       %SRC_DIR%
 if errorlevel 1 exit 1
