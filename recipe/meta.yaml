@@ -81,7 +81,7 @@ test:
     - {{ compiler('fortran') }}  # [not win]
     - {{ compiler('m2w64_fortran') }}  # [win]
   commands:
-    - nf-config --all  # [not win]
+    - nf-config --version  # [not win]
     - test -f $(nf-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
     - test -f $(nc-config --fc)  # [not win]
