@@ -41,3 +41,5 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}
   ctest -VV
 fi
 make install
+
+sed -i.bu "s:${BUILD_PREFIX}:${PREFIX}:g" ${PREFIX}/bin/nf-config && rm ${PREFIX}/bin/nf-config
