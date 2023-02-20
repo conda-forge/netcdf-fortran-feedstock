@@ -19,6 +19,7 @@ source:
     - 0001-no-clang.patch
     - manpage-quoting.patch
     - make-v2compat-cachable.patch
+    - verbose-test-szip.patch  # [win]
 
 build:
   number: {{ build }}
