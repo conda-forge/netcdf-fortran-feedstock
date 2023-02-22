@@ -29,12 +29,20 @@ fi
 # should just work all the time.
 rm -rf ${PREFIX}/lib/cmake/netCDF/*
 
+export BUILD_TYPE=Release
+# export BUILD_TYPE=RelWithDebInfo
+# export BUILD_TYPE=Debug
+
+
 # Build shared.
 mkdir build_shared && cd build_shared
-cmake ${CMAKE_ARGS} -D CMAKE_INSTALL_PREFIX=$PREFIX \
-      -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
-      -D BUILD_SHARED_LIBS=ON \
-      $SRC_DIR
+cmake \
+    ${CMAKE_ARGS} \
+    -D CMAKE_BUILD_TYPE=${BUILD_TYPE} \
+    -D CMAKE_INSTALL_PREFIX=$PREFIX \
+    -D CMAKE_INSTALL_LIBDIR:PATH=$PREFIX/lib \
+    -D BUILD_SHARED_LIBS=ON \
+    $SRC_DIR
 
 make -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
