@@ -1,11 +1,11 @@
-About netcdf-fortran
-====================
+About netcdf-fortran-feedstock
+==============================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/netcdf-fortran-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/Unidata/netcdf-fortran
 
 Package license: NetCDF
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/netcdf-fortran-feedstock/blob/main/LICENSE.txt)
 
 Summary: Unidata NetCDF Fortran Library
 
