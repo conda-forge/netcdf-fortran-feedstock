@@ -3,10 +3,12 @@ channel_sources:
 channel_targets:
 - conda-forge main
 hdf5:
-- 1.14.2
+- 1.14.3
 libnetcdf:
 - 4.9.2
 m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_c_stdlib:
 - m2w64-toolchain
 m2w64_fortran_compiler:
 - m2w64-toolchain
@@ -15,6 +17,6 @@ mpi:
 mpich:
 - '4'
 openmpi:
-- '4'
+- '5'
 target_platform:
 - win-64
