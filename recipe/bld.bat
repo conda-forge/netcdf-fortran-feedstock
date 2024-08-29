@@ -30,7 +30,7 @@ set BUILD_TYPE=Release
 rmdir build_shared /s /q
 mkdir build_shared
 cd build_shared
-cmake -LAH -G "MinGW Makefiles" ^
+cmake -LAH -G "Ninja" ^
       %CMAKE_ARGS% ^
       -D CMAKE_BUILD_TYPE=%BUILD_TYPE% ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
