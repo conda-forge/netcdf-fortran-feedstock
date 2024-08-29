@@ -1,7 +1,6 @@
 set "cwd=%cd%"
 
 set "LIBRARY_PREFIX=%LIBRARY_PREFIX:\=/%"
-set "MINGWBIN=%LIBRARY_PREFIX%/mingw-w64/bin"
 
 :: These flags cause errors during CMake; disable for now?
 set "LDFLAGS=-L%LIBRARY_PREFIX%/lib -Wl,-rpath,%LIBRARY_PREFIX%/lib"
@@ -18,6 +17,11 @@ set PARALLEL=""
 :: should just work all the time.
 rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
 
+set "HOST=x86_64-w64-mingw32"
+set "CC=%HOST%-gcc.exe"
+set "CXX=%HOST%-g++.exe"
+set "FC=%HOST%-gfortran.exe"
+
 set BUILD_TYPE=Release
 :: set BUILD_TYPE=RelWithDebInfo
 :: set BUILD_TYPE=Debug
@@ -26,13 +30,11 @@ set BUILD_TYPE=Release
 rmdir build_shared /s /q
 mkdir build_shared
 cd build_shared
-cmake -LAH -G "MinGW Makefiles" ^
+cmake -LAH -G "Ninja" ^
       %CMAKE_ARGS% ^
       -D CMAKE_BUILD_TYPE=%BUILD_TYPE% ^
       -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
       -D BUILD_SHARED_LIBS=ON ^
-      -D CMAKE_C_COMPILER:PATH=%MINGWBIN%/gcc.exe ^
-      -D CMAKE_Fortran_COMPILER:PATH=%MINGWBIN%/gfortran.exe ^
       -D CMAKE_GNUtoMS:BOOL=ON ^
       -D CMAKE_PREFIX_PATH="%LIBRARY_PREFIX%" ^
       -D BUILD_V2:BOOL=OFF ^
