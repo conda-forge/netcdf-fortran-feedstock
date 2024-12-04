@@ -58,6 +58,7 @@ requirements:
     - {{ compiler('c') }}  # [unix]
     - {{ stdlib('c') }}  # [unix]
     - {{ compiler('fortran') }}  # [unix]
+    - m4  # [unix]
     - make  # [unix]
     # Win
     - {{ compiler('m2w64_c') }}  # [win]
