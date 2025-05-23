@@ -1,9 +1,10 @@
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -574,12 +574,6 @@ ENDIF()
- 
+diff -ruN netcdf-fortran-4.6.2/CMakeLists.txt netcdf-fortran-4.6.2-patch/CMakeLists.txt
+--- netcdf-fortran-4.6.2/CMakeLists.txt	2025-03-26 23:01:02.000000000 +0100
++++ netcdf-fortran-4.6.2-patch/CMakeLists.txt	2025-05-23 12:46:01.171098566 +0200
+@@ -757,12 +757,6 @@
+
  IF (UNIX AND ${CMAKE_SIZEOF_VOID_P} MATCHES "8")
-   ADD_DEFINITIONS(-DLONGLONG_IS_LONG)
+   add_compile_definitions(LONGLONG_IS_LONG)
 -  # for easier debugging of cfortran.h
 -  IF (APPLE)
 -    IF(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -11,5 +12,5 @@
 -    ENDIF()
 -  ENDIF(APPLE)
  ENDIF()
- 
+
  # Determine C library setting for NC_RELAX_COORD_BOUND
