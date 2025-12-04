@@ -2,10 +2,6 @@ set "cwd=%cd%"
 
 set "LIBRARY_PREFIX=%LIBRARY_PREFIX:\=/%"
 
-:: These flags cause errors during CMake; disable for now?
-set "LDFLAGS=-L%LIBRARY_PREFIX%/lib -Wl,-rpath,%LIBRARY_PREFIX%/lib"
-::            Left out: -lcurl -lhdf5 -lhdf5_hl -ldf -lmfhdf
-set "CFLAGS=-fPIC -I%LIBRARY_PREFIX%/include"
 :: PENDING -> PARALLEL MPI STUFF
 set PARALLEL=""
 
@@ -16,11 +12,6 @@ set PARALLEL=""
 :: made, but getting that working fully and robustly appears difficult. This
 :: should just work all the time.
 rmdir "%LIBRARY_LIB%\cmake\netCDF" /s /q
-
-set "HOST=x86_64-w64-mingw32"
-set "CC=%HOST%-gcc.exe"
-set "CXX=%HOST%-g++.exe"
-set "FC=%HOST%-gfortran.exe"
 
 set BUILD_TYPE=Release
 :: set BUILD_TYPE=RelWithDebInfo
