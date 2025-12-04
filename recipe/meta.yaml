@@ -1,5 +1,5 @@
 {% set version = "4.6.2" %}
-{% set build = 2 %}
+{% set build = 3 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -57,13 +57,12 @@ requirements:
     # Unix
     - {{ compiler('c') }}  # [unix]
     - {{ stdlib('c') }}  # [unix]
-    - {{ compiler('fortran') }}  # [unix]
+    - {{ compiler("fortran") }}
     - m4  # [unix]
     - make  # [unix]
-    # Win
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ stdlib('m2w64_c') }}  # [win]
-    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ stdlib("c") }}
+    - {{ compiler("c") }}
+    - {{ compiler("fortran") }}
     - ninja  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
@@ -80,7 +79,7 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('fortran') }}  # [not win]
+    - {{ compiler("fortran") }}
     - {{ compiler('m2w64_fortran') }}  # [win]
   commands:
     - nf-config --version  # [not win]
