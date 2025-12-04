@@ -41,25 +41,18 @@ build:
 
 requirements:
   build:
-    # General
     - cmake
     - pkg-config
     - if: mpi == "openmpi" and build_platform != target_platform
       then: ${{ mpi }}
-    # Unix
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler("fortran") }}
     - if: unix
       then:
-        - ${{ compiler('c') }}
-        - ${{ stdlib("c") }}
-        - ${{ compiler('fortran') }}
         - m4
         - make
-    # Win
-    - if: win
-      then:
-        - ${{ compiler('m2w64_c') }}
-        - ${{ stdlib("m2w64_c") }}
-        - ${{ compiler('m2w64_fortran') }}
+    - else:
         - ninja
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from
@@ -85,11 +78,7 @@ requirements:
 tests:
   - requirements:
       build:
-        - if: not win
-          then:
-            - ${{ compiler('fortran') }}
-          else:
-            - ${{ compiler('m2w64_fortran') }}
+        - ${{ compiler("fortran") }}
     script:
       - if: not win
         then:
