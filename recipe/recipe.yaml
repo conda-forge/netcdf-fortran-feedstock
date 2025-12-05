@@ -86,8 +86,8 @@ tests:
           - command -v "$(basename "$(nf-config --fc)")"
           - test -f ${PREFIX}/lib/libnetcdff${SHLIB_EXT}
         else:
-          - if not exist %PREFIX%\Library\bin\libnetcdff.dll exit 1
-          - if not exist %PREFIX%\Library\lib\libnetcdff.lib exit 1
+          - if not exist %LIBRARY_LIB%/netcdff.lib exit 1
+          - if not exist %LIBRARY_BIN%/netcdff.dll exit 1
 about:
   homepage: https://github.com/Unidata/netcdf-fortran
   license: NetCDF
