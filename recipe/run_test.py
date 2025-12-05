@@ -12,7 +12,15 @@ elif platform == 'darwin':
     path = os.path.join(sys.prefix, 'lib', 'libnetcdff.dylib')
     lib = ctypes.CDLL(path)
 elif platform == 'win32':
-    path = os.path.join(sys.prefix, 'Library', 'bin', 'libnetcdff.dll')
-    lib = ctypes.CDLL(path)
+    libdir = os.path.join(sys.prefix, 'Library', 'bin')
+    for name in ("netcdff.dll", "libnetcdff.dll"):
+        path = os.path.join(libdir, name)
+        if os.path.exists(path):
+            lib = ctypes.CDLL(path)
+            break
+    else:
+        raise FileNotFoundError(
+            f"Could not find netCDF-Fortran DLL (tried netcdff.dll and libnetcdff.dll) in {libdir}"
+        )
 else:
     raise ValueError('Unrecognized platform: {}'.format(platform))
