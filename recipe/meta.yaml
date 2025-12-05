@@ -85,10 +85,9 @@ test:
     - nf-config --version  # [not win]
     - test -f $(nf-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
-    # MinGW style import lib (.dll.a); check can be removed if we
-    # switch to flang or similar, or if we decide to only ship .lib
-    - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1  # [win]
-    - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1  # [win]
+    # Verify MSVC-style import lib and DLL for Windows builds
+    - if not exist %LIBRARY_LIB%/netcdff.lib exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/netcdff.dll exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
