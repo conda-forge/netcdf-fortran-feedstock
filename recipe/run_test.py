@@ -12,7 +12,7 @@ elif platform == 'darwin':
     path = os.path.join(sys.prefix, 'lib', 'libnetcdff.dylib')
     lib = ctypes.CDLL(path)
 elif platform == 'win32':
-    path = os.path.join(sys.prefix, 'Library', 'bin', 'libnetcdff.dll')
+    path = os.path.join(sys.prefix, 'Library', 'bin', 'netcdff.dll')
     lib = ctypes.CDLL(path)
 else:
     raise ValueError('Unrecognized platform: {}'.format(platform))

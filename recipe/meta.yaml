@@ -1,5 +1,5 @@
 {% set version = "4.6.2" %}
-{% set build = 2 %}
+{% set build = 3 %}
 
 # recipe-lint fails if mpi is undefined
 {% set mpi = mpi or 'nompi' %}
@@ -55,15 +55,11 @@ requirements:
     - pkg-config
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
     # Unix
-    - {{ compiler('c') }}  # [unix]
-    - {{ stdlib('c') }}  # [unix]
-    - {{ compiler('fortran') }}  # [unix]
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
+    - {{ compiler("fortran") }}
     - m4  # [unix]
     - make  # [unix]
-    # Win
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ stdlib('m2w64_c') }}  # [win]
-    - {{ compiler('m2w64_fortran') }}  # [win]
     - ninja  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
@@ -80,16 +76,14 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('fortran') }}  # [not win]
-    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler("fortran") }}
   commands:
     - nf-config --version  # [not win]
     - test -f $(nf-config --fc)  # [not win]
     - test -f $PREFIX/lib/libnetcdff${SHLIB_EXT}  # [not win]
-    # MinGW style import lib (.dll.a); check can be removed if we
-    # switch to flang or similar, or if we decide to only ship .lib
-    - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1  # [win]
-    - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1  # [win]
+    # Verify MSVC-style import lib and DLL for Windows builds
+    - if not exist %LIBRARY_LIB%/netcdff.lib exit 1  # [win]
+    - if not exist %LIBRARY_BIN%/netcdff.dll exit 1  # [win]
 
 about:
   home: https://github.com/Unidata/netcdf-fortran
