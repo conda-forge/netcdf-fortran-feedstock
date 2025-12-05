@@ -55,14 +55,11 @@ requirements:
     - pkg-config
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
     # Unix
-    - {{ compiler('c') }}  # [unix]
-    - {{ stdlib('c') }}  # [unix]
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - {{ compiler("fortran") }}
     - m4  # [unix]
     - make  # [unix]
-    - {{ stdlib("c") }}
-    - {{ compiler("c") }}
-    - {{ compiler("fortran") }}
     - ninja  # [win]
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from conda_build_config
