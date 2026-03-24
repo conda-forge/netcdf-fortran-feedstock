@@ -1,0 +1,114 @@
+schema_version: 1
+
+context:
+  name: netcdf-fortran
+  version: "4.6.2"
+  build: 4
+  # recipe-lint fails if mpi is undefined
+  mpi: ${{ mpi or "nompi" }}
+  # prioritize nompi via build number
+  build_number: ${{ build + 100 if mpi == "nompi" else build }}
+  mpi_prefix: ${{ "mpi_" + mpi if mpi != "nompi" else "nompi" }}
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/Unidata/netcdf-fortran/archive/v${{ version }}.tar.gz
+  sha256: 44cc7b5626b0b054a8503b8fe7c1b0ac4e0a79a69dad792c212454906a9224ca
+  patches:
+    - 0001-no-clang.patch
+    - 0002-manpage-quoting.patch
+    - 0003-make-v2compat-cachable.patch
+    - if: win
+      then: 0004-szip.patch
+
+build:
+  number: ${{ build_number }}
+
+  # add build string so packages can depend on
+  # mpi or nompi variants explicitly:
+  # `netcdf-fortran * mpi_mpich_*` for mpich
+  # `netcdf-fortran * mpi_*` for any mpi
+  # `netcdf-fortran * nompi_*` for no mpi
+  string: ${{ mpi_prefix }}_h${{ hash }}_${{ build_number }}
+
+requirements:
+  build:
+    # General
+    - cmake
+    - pkg-config
+    - if: mpi == "openmpi" and build_platform != target_platform
+      then: ${{ mpi }}
+    # Unix
+    - if: unix
+      then:
+        - ${{ compiler('c') }}
+        - ${{ stdlib("c") }}
+        - ${{ compiler('fortran') }}
+        - m4
+        - make
+    # Win
+    - if: win
+      then:
+        - ${{ compiler('m2w64_c') }}
+        - ${{ stdlib("m2w64_c") }}
+        - ${{ compiler('m2w64_fortran') }}
+        - ninja
+  host:
+    # need to list hdf5 and libnetcdf twice to get version pinning from
+    # conda_build_config and build pinning from ${{ mpi_prefix }}
+    - libnetcdf
+    - libnetcdf * ${{ mpi_prefix }}_*
+    - hdf5
+    - hdf5 * ${{ mpi_prefix }}_*
+    - zlib
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+  run:
+    - libnetcdf * ${{ mpi_prefix }}_*
+    - hdf5 * ${{ mpi_prefix }}_*
+    - if: mpi != "nompi"
+      then: ${{ mpi }}
+  run_exports:
+    # https://abi-laboratory.pro/index.php?view=timeline&l=netcdf-fortran
+    - ${{ pin_subpackage(name, upper_bound="x.x") }}
+    - if: mpi != "nompi"
+      then: ${{ name }} * ${{ mpi_prefix }}_*
+
+tests:
+  - requirements:
+      build:
+        - if: not win
+          then:
+            - ${{ compiler('fortran') }}
+        - if: win
+          then:
+            - ${{ compiler('m2w64_fortran') }}
+    script:
+      - if: not win
+        then:
+          - nf-config --version
+          - test -f $(nf-config --fc)
+          - test -f ${PREFIX}/lib/libnetcdff${SHLIB_EXT}
+      # MinGW style import lib (.dll.a); check can be removed if we
+      # switch to flang or similar, or if we decide to only ship .lib
+      - if: win
+        then:
+          - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1
+          - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1
+
+about:
+  homepage: https://github.com/Unidata/netcdf-fortran
+  license: NetCDF
+  license_file: COPYRIGHT
+  summary: Unidata NetCDF Fortran Library
+  repository: https://github.com/Unidata/netcdf-fortran
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - bekozi
+    - xylar
+    - zklaus
