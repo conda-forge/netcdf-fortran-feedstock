@@ -26,6 +26,11 @@ source:
 
 build:
   number: ${{ build_number }}
+  script:
+    - if: win
+      then: build.bat
+    - if: unix
+      then: build.sh
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
@@ -90,14 +95,12 @@ tests:
       - if: not win
         then:
           - nf-config --version
-          - test -f $(nf-config --fc)
+          - command -v "$(basename "$(nf-config --fc)")"
           - test -f ${PREFIX}/lib/libnetcdff${SHLIB_EXT}
-      # MinGW style import lib (.dll.a); check can be removed if we
-      # switch to flang or similar, or if we decide to only ship .lib
       - if: win
         then:
-          - if not exist %LIBRARY_LIB%/libnetcdff.dll.a exit 1
-          - if not exist %LIBRARY_LIB%/libnetcdff.lib exit 1
+          - if not exist %PREFIX%\Library\bin\libnetcdff.dll exit 1
+          - if not exist %PREFIX%\Library\lib\libnetcdff.lib exit 1
 
 about:
   homepage: https://github.com/Unidata/netcdf-fortran
