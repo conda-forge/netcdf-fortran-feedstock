@@ -17,17 +17,19 @@ fortran_compiler:
 fortran_compiler_version:
 - '14'
 hdf5:
-- 1.14.6
+- '2'
 libnetcdf:
 - 4.10.0
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
 openmpi:
 - '5'
 target_platform:
-- linux-ppc64le
+- linux-64
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version
+zlib:
+- '1'

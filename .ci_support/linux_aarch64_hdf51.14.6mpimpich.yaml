@@ -21,13 +21,15 @@ hdf5:
 libnetcdf:
 - 4.10.0
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 openmpi:
 - '5'
 target_platform:
-- linux-64
+- linux-aarch64
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version
+zlib:
+- '1'
