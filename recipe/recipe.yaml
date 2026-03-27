@@ -3,7 +3,7 @@ schema_version: 1
 context:
   name: netcdf-fortran
   version: "4.6.2"
-  build: 4
+  build: 5
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   # prioritize nompi via build number
@@ -88,8 +88,7 @@ tests:
         - if: not win
           then:
             - ${{ compiler('fortran') }}
-        - if: win
-          then:
+          else:
             - ${{ compiler('m2w64_fortran') }}
     script:
       - if: not win
@@ -97,11 +96,9 @@ tests:
           - nf-config --version
           - command -v "$(basename "$(nf-config --fc)")"
           - test -f ${PREFIX}/lib/libnetcdff${SHLIB_EXT}
-      - if: win
-        then:
+        else:
           - if not exist %PREFIX%\Library\bin\libnetcdff.dll exit 1
           - if not exist %PREFIX%\Library\lib\libnetcdff.lib exit 1
-
 about:
   homepage: https://github.com/Unidata/netcdf-fortran
   license: NetCDF

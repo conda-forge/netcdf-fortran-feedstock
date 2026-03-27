@@ -23,7 +23,7 @@ libnetcdf:
 mpi:
 - openmpi
 mpich:
-- '4'
+- '5'
 openmpi:
 - '5'
 target_platform:
