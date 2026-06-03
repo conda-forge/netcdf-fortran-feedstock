@@ -2,8 +2,8 @@ schema_version: 1
 
 context:
   name: netcdf-fortran
-  version: "4.6.2"
-  build: 5
+  version: "4.6.3"
+  build: 0
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   # prioritize nompi via build number
@@ -16,7 +16,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v${{ version }}.tar.gz
-  sha256: 44cc7b5626b0b054a8503b8fe7c1b0ac4e0a79a69dad792c212454906a9224ca
+  sha256: b9de820c4823faa5b4e1cd9ee82dd7c57acad105ebd8f6ae36b0244105518655
   patches:
     - 0001-no-clang.patch
     - 0002-manpage-quoting.patch
