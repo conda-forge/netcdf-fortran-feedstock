@@ -2,8 +2,8 @@ schema_version: 1
 
 context:
   name: netcdf-fortran
-  version: "4.6.2"
-  build: 5
+  version: "4.6.3"
+  build: 0
   # recipe-lint fails if mpi is undefined
   mpi: ${{ mpi or "nompi" }}
   # prioritize nompi via build number
@@ -16,7 +16,7 @@ package:
 
 source:
   url: https://github.com/Unidata/netcdf-fortran/archive/v${{ version }}.tar.gz
-  sha256: 44cc7b5626b0b054a8503b8fe7c1b0ac4e0a79a69dad792c212454906a9224ca
+  sha256: b9de820c4823faa5b4e1cd9ee82dd7c57acad105ebd8f6ae36b0244105518655
   patches:
     - 0001-no-clang.patch
     - 0002-manpage-quoting.patch
@@ -27,10 +27,9 @@ source:
 build:
   number: ${{ build_number }}
   script:
-    - if: win
-      then: build.bat
     - if: unix
       then: build.sh
+      else: build.bat
 
   # add build string so packages can depend on
   # mpi or nompi variants explicitly:
@@ -41,25 +40,18 @@ build:
 
 requirements:
   build:
-    # General
     - cmake
     - pkg-config
     - if: mpi == "openmpi" and build_platform != target_platform
       then: ${{ mpi }}
-    # Unix
+    - ${{ compiler("c") }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler("fortran") }}
     - if: unix
       then:
-        - ${{ compiler('c') }}
-        - ${{ stdlib("c") }}
-        - ${{ compiler('fortran') }}
         - m4
         - make
-    # Win
-    - if: win
-      then:
-        - ${{ compiler('m2w64_c') }}
-        - ${{ stdlib("m2w64_c") }}
-        - ${{ compiler('m2w64_fortran') }}
+      else:
         - ninja
   host:
     # need to list hdf5 and libnetcdf twice to get version pinning from
@@ -85,20 +77,16 @@ requirements:
 tests:
   - requirements:
       build:
-        - if: not win
-          then:
-            - ${{ compiler('fortran') }}
-          else:
-            - ${{ compiler('m2w64_fortran') }}
+        - ${{ compiler("fortran") }}
     script:
-      - if: not win
+      - if: unix
         then:
           - nf-config --version
           - command -v "$(basename "$(nf-config --fc)")"
           - test -f ${PREFIX}/lib/libnetcdff${SHLIB_EXT}
         else:
-          - if not exist %PREFIX%\Library\bin\libnetcdff.dll exit 1
-          - if not exist %PREFIX%\Library\lib\libnetcdff.lib exit 1
+          - if not exist %LIBRARY_LIB%/netcdff.lib exit 1
+          - if not exist %LIBRARY_BIN%/netcdff.dll exit 1
 about:
   homepage: https://github.com/Unidata/netcdf-fortran
   license: NetCDF
