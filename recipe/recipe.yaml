@@ -78,6 +78,11 @@ tests:
   - requirements:
       build:
         - ${{ compiler("fortran") }}
+      run:
+        - python
+    files:
+      recipe:
+        - run_test.py
     script:
       - if: unix
         then:
@@ -87,6 +92,7 @@ tests:
         else:
           - if not exist %LIBRARY_LIB%/netcdff.lib exit 1
           - if not exist %LIBRARY_BIN%/netcdff.dll exit 1
+      - python run_test.py
 about:
   homepage: https://github.com/Unidata/netcdf-fortran
   license: NetCDF
